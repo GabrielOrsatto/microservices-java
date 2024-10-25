@@ -12,7 +12,7 @@
 	<artifactId>config-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>config-service</name>
-	<description>Microservice de servidor de configuração</description>
+	<description>Microservice para servidor de configuração</description>
 	<url/>
 	<licenses>
 		<license/>

@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,9 +34,9 @@ public class ProdutoController {
 	@GetMapping("/{idProduto}/{moeda}")
 	public ResponseEntity<ProdutoEntity> getProduto(
 			@PathVariable Integer idProduto,
-			@PathVariable String moeda) throws Exception{
+			@PathVariable String moeda,
+			@RequestHeader("Usuario") String usuario) throws Exception{
 		
-		//vai buscar no banco de dados
 		ProdutoEntity produto = repository.findById(idProduto)
 				.orElseThrow(() -> new Exception("Produto não encontrado!"));
 		
@@ -43,8 +44,7 @@ public class ProdutoController {
 				produto.getValor(), "USD", moeda);
 		
 		produto.setValorConvertido(cambio.getValorConvertido());
-		produto.setAmbiente("Produto-service run in: " + porta 
-				+ " - " + cambio.getAmbiente());
+		produto.setAmbiente("Produto-service run in: " + porta + " - " + "Usuario: " + usuario );
 		return ResponseEntity.ok(produto);
 	}
 	
